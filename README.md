@@ -33,6 +33,7 @@ Requires [mne-python](https://mne.tools/stable/install/index.html) package.
 
 #### MEG
 
+```
 mpg:isAnon=True
 bids:samplingFrequency=1000.0
 bids:powerLineFrequency=50.0
@@ -45,23 +46,29 @@ bids:megChannelCount=306
 bids:recordingDuration=866.0
 bids:numberOfChannels=341
 bids:megCoordinateSystem=ElektaNeuromag
+```
 
 #### ECOG
+
+```
 mpg:isAnon=True
 bids:samplingFrequency=1024.0
 bids:numberOfChannels=144
 bids:hardwareFilters_HighpassFilter_CutoffFrequency=[0.0]
 bids:hardwareFilters_LowpassFilter_CutoffFrequency=[512.0]
 bids:recordingDuration=938.0
+```
 
 #### ET
 
+```
 mpg:isAnon=True
 bids:Manufacturer=EYELINK
 bids:SamplingFrequency=1000
 mpg:DistanceToScreen=140.0 cms
 mpg:ScreenSize=39.0 22.0 cms
 mpg:RecordedEye=Both
+```
 
 #### Abbreviations
 
