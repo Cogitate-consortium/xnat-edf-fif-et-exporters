@@ -74,5 +74,10 @@ mpg:RecordedEye=Both
 ## Notes
 Names of the import handlers for the additional datatypes for XNAT REST calls via `/data/services/import` - **MEG/EEG** and **ECOG** and **EyeTracker** respectively.
 
+## Repository Contributors
+- [Adeel Ansari](https://github.com/adeel-ansari)
+- [Mohana Ramaratnam](https://github.com/mohanakannan9)
+- [Praveen Sripad](https://github.com/pravsripad)
+
 ## Acknowledgements
 This project was made possible through the support of a grant from Templeton World Charity Foundation, Inc. The tool has been developed as a part of the [ARC-COGITATE](https://www.arc-cogitate.com/) project.
