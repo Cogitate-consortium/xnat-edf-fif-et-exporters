@@ -17,9 +17,9 @@ import mne
 def generateFIFProppertiesFileForXnat(meg_headers, out_fname):
         print('Generating Properties File for XNAT ' + out_fname)
 
-        isAnon = False
-        if meg_headers['experimenter'] == 'XXX':
-            isAnon = True
+        isAnon = True
+        # if meg_headers['experimenter'] == 'XXX':
+        #     isAnon = True
 
         out_file = open(r'%s'% out_fname,"w")
         out_file.write('isAnon=%s\n'% isAnon)
@@ -39,11 +39,11 @@ def generateFIFProppertiesFileForXnat(meg_headers, out_fname):
 def generateEDFProppertiesFileForXnat(ecog_headers, raw, out_fname):
         print('Generating Properties File for XNAT')
 
-        isAnon = False
-        if ecog_headers['patient_id'] == 'X X X X_X':
-            isAnon = True
+        isAnon = True
+        # if ecog_headers['patient_id'] == 'X X X X_X':
+        #     isAnon = True
 
-        print(raw.info['subject_info'] )
+        # print(raw.info['subject_info'] )
         out_file = open(r'%s'% out_fname,"w")
         out_file.write('isAnon=%s\n'% isAnon)
         out_file.write('bids_frequency=%s\n'% ecog_headers['SamplingFrequency'])
@@ -96,6 +96,9 @@ def fif_header_to_properties(fif_fname, json_template, out_fname, generate_prope
     if raw.info['dig'] is not None and len(raw.info['dig']) != 0:
         meg_headers['DigitizedLandmarks'] = True
         meg_headers['DigitizedHeadPoints'] = True
+    else:
+        meg_headers['DigitizedLandmarks'] = False
+        meg_headers['DigitizedHeadPoints'] = False
 
     # channel counts
     meg_headers['MEGChannelCount'] = len(mne.pick_types(raw.info, meg=True))
@@ -114,22 +117,22 @@ def fif_header_to_properties(fif_fname, json_template, out_fname, generate_prope
     meg_headers['RecordingDuration'] = round(raw.n_times / raw.info['sfreq'], 2)
 
     # get a list of Head Position Indicator coil frequencies
-    try:
-        chpi_freqs, ch_idx, chpi_codes = mne.chpi.get_chpi_info(info=raw.info)
-        meg_headers['HeadCoilFrequency'] = str(chpi_freqs)
-        meg_headers['ContinuousHeadLocalization'] = True
-
-        chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw)
-        chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes)
-        head_pos = mne.chpi.compute_head_pos(raw.info, chpi_locs, verbose=True)
-
-        # get the max movement among x, y and z positions in mm
-        # originally in meters
-        meg_headers['MaxMovement'] = max(max(head_pos[:, 4]),
-                                         max(head_pos[:, 5]),
-                                         max(head_pos[:, 6])) * 1000
-    except ValueError:
-        meg_headers['ContinuousHeadLocalization'] = False
+    #try:
+#         chpi_freqs, ch_idx, chpi_codes = mne.chpi.get_chpi_info(info=raw.info)
+#         meg_headers['HeadCoilFrequency'] = str(chpi_freqs)
+#         meg_headers['ContinuousHeadLocalization'] = True
+# 
+#         chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw)
+#         chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes)
+#         head_pos = mne.chpi.compute_head_pos(raw.info, chpi_locs, verbose=True)
+# 
+#         # get the max movement among x, y and z positions in mm
+#         # originally in meters
+#         meg_headers['MaxMovement'] = max(max(head_pos[:, 4]),
+#                                          max(head_pos[:, 5]),
+#                                          max(head_pos[:, 6])) * 1000
+#     except ValueError:
+#         meg_headers['ContinuousHeadLocalization'] = False
 
     # channels information
     # name, type, units, sampling frequency
@@ -299,3 +302,4 @@ def run():
 is_main = (__name__ == '__main__')
 if is_main:
     run()
+

@@ -185,7 +185,7 @@ def extract_asc_file_headers(input_fname, out_fname, xnat_fields_only=True,
     et_config_dict['SamplingFrequency'] = et_config_dict['sampling_rate']
 
     if et_config_dict.get('Screen_size_mm') == 'N/A':
-        et_config_dict['ScreenSize'] = 'N/A'
+        et_config_dict['ScreenSize'] = '-1 cms'
     else:
         # get the screen size in cms, some weirdfu here !
         et_config_dict['ScreenSize'] = \
@@ -193,7 +193,7 @@ def extract_asc_file_headers(input_fname, out_fname, xnat_fields_only=True,
             str(float(et_config_dict['Screen_size_mm'].split()[1].lstrip('-')) / 10) + ' cms'
 
     if et_config_dict.get('Screen_distance_mm') == 'N/A':
-        et_config_dict['DistanceToScreen'] = 'N/A'
+        et_config_dict['DistanceToScreen'] = '-1 cms'
     else:
         # get the distance to screen in cms
         # (pick one value only and convert from mm)
@@ -371,3 +371,4 @@ def run():
 is_main = (__name__ == '__main__')
 if is_main:
     run()
+
